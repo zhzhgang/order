@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhzhgang.order.dao.ProductCategoryDao">
+
+    <resultMap id="ProductCategoryMap" type="ProductCategory">
+        <result column="categoryId" property="categoryId"></result>
+        <result column="categoryName" property="categoryName"></result>
+        <result column="categoryType" property="categoryType"></result>
+    </resultMap>
+
+    <select id="findById" parameterType="java.lang.Integer" resultMap="ProductCategoryMap">
+        SELECT
+          category_id categoryId,
+          category_name categoryName,
+          category_type categoryType
+        FROM
+          product_category
+        WHERE
+          category_id = #{id}
+    </select>
+
+    <select id="findByCategoryTypeIn" parameterType="java.util.Map" resultMap="ProductCategoryMap">
+        SELECT
+          category_id categoryId,
+          category_name categoryName,
+          category_type categoryType
+        FROM
+          product_category
+        WHERE
+          category_type IN
+        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <insert id="save" parameterType="ProductCategory" keyProperty="categoryId" useGeneratedKeys="true">
+        INSERT INTO product_category (
+          category_name,
+          category_type
+        ) VALUES (
+          #{categoryName},
+          #{categoryType}
+        )
+    </insert>
+
+    <update id="update" parameterType="ProductCategory">
+        UPDATE product_category
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="null != categoryName">category_name = #{categoryName},</if>
+            <if test="null != categoryType">category_type = #{categoryType},</if>
+        </trim>
+        WHERE category_id = #{categoryId}
+    </update>
+
+</mapper>
