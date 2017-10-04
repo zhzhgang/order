@@ -19,6 +19,15 @@
           category_id = #{id}
     </select>
 
+    <select id="findAll" resultMap="ProductCategoryMap">
+        SELECT
+          category_id categoryId,
+          category_name categoryName,
+          category_type categoryType
+        FROM
+          product_category
+    </select>
+
     <select id="findByCategoryTypeIn" parameterType="java.util.Map" resultMap="ProductCategoryMap">
         SELECT
           category_id categoryId,

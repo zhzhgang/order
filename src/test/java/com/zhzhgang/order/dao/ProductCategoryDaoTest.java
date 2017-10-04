@@ -32,6 +32,12 @@ public class ProductCategoryDaoTest {
     }
 
     @Test
+    public void findAll() {
+        List<ProductCategory> result = productCategoryDao.findAll();
+        Assert.assertNotNull(result.size());
+    }
+
+    @Test
     public  void testSave() {
         ProductCategory productCategory = new ProductCategory("男生最爱", 3);
         System.out.println(productCategory.getCategoryId());

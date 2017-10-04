@@ -13,6 +13,8 @@ public interface ProductCategoryDao {
 
     ProductCategory findById(Integer id);
 
+    List<ProductCategory> findAll();
+
     void save(ProductCategory productCategory);
 
     void update(ProductCategory productCategory);
