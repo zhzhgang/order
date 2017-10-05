@@ -1,5 +1,7 @@
 package com.zhzhgang.order.dao;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.zhzhgang.order.domain.ProductInfo;
 import org.junit.Assert;
 import org.junit.Test;
@@ -31,13 +33,13 @@ public class ProductInfoDaoTest {
     public void testSave() {
         ProductInfo productInfo = new ProductInfo();
         productInfo.setProductId(UUID.randomUUID().toString().substring(0, 13) + System.currentTimeMillis());
-        productInfo.setProductName("冰激凌");
-        productInfo.setProductPrice(new BigDecimal(15));
+        productInfo.setProductName("扎啤");
+        productInfo.setProductPrice(new BigDecimal(45));
         productInfo.setProductStock(100);
-        productInfo.setProductDesc("巧克力冰激凌");
-        productInfo.setProductIcon("http://bbb.jpg");
+        productInfo.setProductDesc("一起哈啤吧");
+        productInfo.setProductIcon("http://ccc.jpg");
         productInfo.setProductStatus(0);
-        productInfo.setCategoryType(2);
+        productInfo.setCategoryType(3);
 
         productInfoDao.save(productInfo);
     }
@@ -46,6 +48,23 @@ public class ProductInfoDaoTest {
     public void testFindByProductStatus() throws Exception {
         List<ProductInfo> result = productInfoDao.findByProductStatus(0);
         Assert.assertSame(2, result.size());
+    }
+
+    @Test
+    public void testFindById() {
+        ProductInfo result = productInfoDao.findById("16b3f8f2-cd151507194585011");
+        Assert.assertNotNull(result);
+    }
+
+    @Test
+    public void testFindAll() {
+        PageHelper.startPage(2, 2);
+        List<ProductInfo> result = productInfoDao.findAll();
+        System.out.println("Total: " + ((Page) result).getTotal());
+        for (ProductInfo productInfo : result) {
+            System.out.println("product name: " + productInfo.getProductName());
+        }
+        Assert.assertNotNull(result.size());
     }
 
 }

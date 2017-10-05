@@ -13,6 +13,36 @@
         <result column="category_type" property="categoryType"></result>
     </resultMap>
 
+    <select id="findById" parameterType="java.lang.String" resultMap="productInfoMap">
+        SELECT
+          product_id,
+          product_name,
+          product_price,
+          product_stock,
+          product_desc,
+          product_icon,
+          product_status,
+          category_type
+        FROM
+          product_info
+        WHERE
+          product_id = #{productId}
+    </select>
+
+    <select id="findAll" resultMap="productInfoMap">
+        SELECT
+            product_id,
+            product_name,
+            product_price,
+            product_stock,
+            product_desc,
+            product_icon,
+            product_status,
+            category_type
+        FROM
+          product_info
+    </select>
+
     <select id="findByProductStatus" parameterType="java.lang.Integer" resultMap="productInfoMap">
         SELECT
           product_id,
