@@ -9,6 +9,7 @@ import java.util.List;
  * Created by zhangzhonggang
  * 2017-10-04 14:26
  */
+@Repository
 public interface ProductCategoryDao {
 
     ProductCategory findById(Integer id);

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhzhgang.order.dao.ProductInfoDao">
+
+    <resultMap id="productInfoMap" type="ProductInfo">
+        <result column="product_id" property="productId"></result>
+        <result column="product_name" property="productName"></result>
+        <result column="product_price" property="productPrice"></result>
+        <result column="product_stock" property="productStock"></result>
+        <result column="product_desc" property="productDesc"></result>
+        <result column="product_icon" property="productIcon"></result>
+        <result column="product_status" property="productStatus"></result>
+        <result column="category_type" property="categoryType"></result>
+    </resultMap>
+
+    <select id="findByProductStatus" parameterType="java.lang.Integer" resultMap="productInfoMap">
+        SELECT
+          product_id,
+          product_name,
+          product_price,
+          product_stock,
+          product_desc,
+          product_icon,
+          product_status,
+          category_type
+        FROM
+          product_info
+        WHERE
+          product_status = #{productStatus}
+    </select>
+
+    <insert id="save" parameterType="ProductInfo" keyProperty="productId" useGeneratedKeys="false">
+        INSERT INTO product_info (
+          product_id,
+          product_name,
+          product_price,
+          product_stock,
+          product_desc,
+          product_icon,
+          product_status,
+          category_type
+        ) VALUES (
+          #{productId},
+          #{productName},
+          #{productPrice},
+          #{productStock},
+          #{productDesc},
+          #{productIcon},
+          #{productStatus},
+          #{categoryType}
+        )
+    </insert>
+
+    <update id="uodate" parameterType="ProductInfo">
+        UPDATE product_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="null != productName">product_name = #{productName},</if>
+            <if test="null != productPrice">product_price = #{productPrice},</if>
+            <if test="null != productStock">product_stock = #{productStock},</if>
+            <if test="null != productDesc">product_desc = #{productDesc},</if>
+            <if test="null != productIcon">product_icon = #{productIcon},</if>
+            <if test="null != productStatus">product_status = #{productStatus},</if>
+            <if test="null != categoryType">category_type = #{categoryType},</if>
+        </trim>
+        WHERE product_id = #{productId}
+    </update>
+
+</mapper>
