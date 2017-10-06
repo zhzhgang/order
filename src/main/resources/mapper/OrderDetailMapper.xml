@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhzhgang.order.dao.OrderMasterDao">
+
+    <resultMap id="OrderMasterMap" type="OrderMaster">
+        <result column="orderId" property="orderId"></result>
+        <result column="buyerName" property="buyerName"></result>
+        <result column="buyerPhone" property="buyerPhone"></result>
+        <result column="buyerAddress" property="buyerAddress"></result>
+        <result column="buyerOpenid" property="buyerOpenid"></result>
+        <result column="orderAmount" property="orderAmount"></result>
+        <result column="orderStatus" property="orderStatus"></result>
+        <result column="payStatus" property="payStatus"></result>
+        <result column="ctime" property="ctime"></result>
+        <result column="utime" property="utime"></result>
+    </resultMap>
+
+    <select id="findByBuyerOpenId" parameterType="java.lang.String" resultMap="OrderMasterMap">
+        SELECT
+        order_id orderId,
+        buyer_name buyerName,
+        buyer_phone buyerPhone,
+        buyer_address buyerAddress,
+        buyer_openid buyerOpenid,
+        order_amount orderAmount,
+        order_status orderStatus,
+        pay_status payStatus,
+        ctime ctime,
+        utime utime
+        FROM
+        order_master
+        WHERE
+        buyer_openid = #{buyerOpenId}
+    </select>
+</mapper>
