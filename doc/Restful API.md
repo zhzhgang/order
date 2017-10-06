@@ -7,7 +7,7 @@
 #### 1.1 商品列表
 
 ```
-GET /sell/buyer/product
+GET /sell/buyer/product/list
 ```
 
 参数
