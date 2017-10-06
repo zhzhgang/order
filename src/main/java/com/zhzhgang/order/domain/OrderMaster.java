@@ -22,7 +22,7 @@ public class OrderMaster {
 
     private String buyerAddress;
 
-    private String buyerOpenid;
+    private String buyerOpenId;
 
     private BigDecimal orderAmount;
 

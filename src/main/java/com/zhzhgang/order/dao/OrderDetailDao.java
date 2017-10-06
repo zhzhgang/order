@@ -12,5 +12,8 @@ import java.util.List;
 @Repository
 public interface OrderDetailDao {
 
+    void save(OrderDetail orderDetail);
+
     List<OrderDetail> findByOrderId(String orderId);
+
 }

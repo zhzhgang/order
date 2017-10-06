@@ -7,7 +7,7 @@
         <result column="buyerName" property="buyerName"></result>
         <result column="buyerPhone" property="buyerPhone"></result>
         <result column="buyerAddress" property="buyerAddress"></result>
-        <result column="buyerOpenid" property="buyerOpenid"></result>
+        <result column="buyerOpenId" property="buyerOpenId"></result>
         <result column="orderAmount" property="orderAmount"></result>
         <result column="orderStatus" property="orderStatus"></result>
         <result column="payStatus" property="payStatus"></result>
@@ -21,7 +21,7 @@
           buyer_name buyerName,
           buyer_phone buyerPhone,
           buyer_address buyerAddress,
-          buyer_openid buyerOpenid,
+          buyer_openid buyerOpenId,
           order_amount orderAmount,
           order_status orderStatus,
           pay_status payStatus,
@@ -32,4 +32,27 @@
         WHERE
           buyer_openid = #{buyerOpenId}
     </select>
+
+    <insert id="save" parameterType="OrderMaster" useGeneratedKeys="false" keyProperty="orderId">
+        INSERT INTO order_master (
+          order_id,
+          buyer_name,
+          buyer_phone,
+          buyer_address,
+          buyer_openid,
+          order_amount,
+          order_status,
+          pay_status
+        ) VALUES (
+          #{orderId},
+          #{buyerName},
+          #{buyerPhone},
+          #{buyerAddress},
+          #{buyerOpenId},
+          #{orderAmount},
+          #{orderStatus},
+          #{payStatus}
+        )
+
+    </insert>
 </mapper>

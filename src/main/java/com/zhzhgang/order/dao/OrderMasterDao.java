@@ -11,5 +11,9 @@ import java.util.List;
  */
 @Repository
 public interface OrderMasterDao {
+
+    void save(OrderMaster orderMaster);
+
     List<OrderMaster> findByBuyerOpenId(String buyerOpenId);
+
 }
