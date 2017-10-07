@@ -2,12 +2,13 @@ package com.zhzhgang.order.service.impl;
 
 import com.zhzhgang.order.dao.OrderDetailDao;
 import com.zhzhgang.order.dao.OrderMasterDao;
-import com.zhzhgang.order.dao.ProductInfoDao;
 import com.zhzhgang.order.domain.OrderDetail;
 import com.zhzhgang.order.domain.OrderMaster;
 import com.zhzhgang.order.domain.ProductInfo;
 import com.zhzhgang.order.dto.CartDTO;
 import com.zhzhgang.order.dto.OrderDTO;
+import com.zhzhgang.order.enums.OrderStatusEnum;
+import com.zhzhgang.order.enums.PayStatusEnum;
 import com.zhzhgang.order.enums.ResultEnum;
 import com.zhzhgang.order.exception.OrderException;
 import com.zhzhgang.order.service.OrderService;
@@ -72,6 +73,8 @@ public class OrderServiceImpl implements OrderService {
         BeanUtils.copyProperties(orderDTO, orderMaster);
         orderMaster.setOrderId(orderId);
         orderMaster.setOrderAmount(orderAmount);
+        orderMaster.setOrderStatus(OrderStatusEnum.NEW.getCode());
+        orderMaster.setPayStatus(PayStatusEnum.WAIT.getCode());
 
         orderMasterDao.save(orderMaster);
 

@@ -63,7 +63,7 @@ public class ProductInfoServiceImpl implements ProductInfoService {
     @Transactional
     public void decreaseStock(List<CartDTO> cartDTOList) {
         for (CartDTO cartDTO : cartDTOList) {
-            ProductInfo productInfo = productInfoDao.findById(cartDTO.toString());
+            ProductInfo productInfo = productInfoDao.findById(cartDTO.getProductId());
             if (productInfo == null) {
                 throw new OrderException(ResultEnum.PRODUCT_NOT_EXIST);
             }
@@ -72,7 +72,7 @@ public class ProductInfoServiceImpl implements ProductInfoService {
                 throw new OrderException(ResultEnum.PRODUCT_STOCK_ERROR);
             }
             productInfo.setProductStock(result);
-            productInfoDao.save(productInfo);
+            productInfoDao.update(productInfo);
         }
     }
 }

@@ -81,7 +81,7 @@
         )
     </insert>
 
-    <update id="uodate" parameterType="ProductInfo">
+    <update id="update" parameterType="ProductInfo">
         UPDATE product_info
         <trim prefix="SET" suffixOverrides=",">
             <if test="null != productName">product_name = #{productName},</if>

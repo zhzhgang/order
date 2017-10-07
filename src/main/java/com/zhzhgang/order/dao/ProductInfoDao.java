@@ -14,6 +14,8 @@ public interface ProductInfoDao {
 
     void save(ProductInfo productInfo);
 
+    void update(ProductInfo productInfo);
+
     ProductInfo findById(String productId);
 
     List<ProductInfo> findAll();
