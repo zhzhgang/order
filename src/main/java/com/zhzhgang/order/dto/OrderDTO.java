@@ -1,5 +1,6 @@
-package com.zhzhgang.order.domain;
+package com.zhzhgang.order.dto;
 
+import com.zhzhgang.order.domain.OrderDetail;
 import com.zhzhgang.order.enums.OrderStatusEnum;
 import com.zhzhgang.order.enums.PayStatusEnum;
 import lombok.Data;
@@ -10,10 +11,10 @@ import java.util.List;
 
 /**
  * Created by zhangzhonggang
- * 2017-10-06 18:23
+ * 2017-10-07 15:49
  */
 @Data
-public class OrderMaster {
+public class OrderDTO {
 
     private String orderId;
 
@@ -28,12 +29,14 @@ public class OrderMaster {
     private BigDecimal orderAmount;
 
     /** 订单状态，默认为 0，新下单. */
-    private Integer orderStatus = OrderStatusEnum.NEW.getCode();
+    private Integer orderStatus;
 
     /** 支付状态，默认为 0，等待支付. */
-    private Integer payStatus = PayStatusEnum.WAIT.getCode();
+    private Integer payStatus;
 
     private Date ctime;
 
     private Date utime;
+
+    private List<OrderDetail> orderDetailList;
 }
