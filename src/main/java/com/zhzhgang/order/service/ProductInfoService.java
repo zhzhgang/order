@@ -1,6 +1,8 @@
 package com.zhzhgang.order.service;
 
 import com.zhzhgang.order.domain.ProductInfo;
+import com.zhzhgang.order.dto.CartDTO;
+
 import java.awt.print.Pageable;
 import java.util.List;
 
@@ -23,7 +25,9 @@ public interface ProductInfoService {
     List<ProductInfo> findAll();
 
     // 加库存
+    void increaseStock(List<CartDTO> cartDTOList);
 
     // 减库存
+    void decreaseStock(List<CartDTO> cartDTOList);
 
 }

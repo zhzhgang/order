@@ -4,14 +4,23 @@ import com.zhzhgang.order.dao.OrderDetailDao;
 import com.zhzhgang.order.dao.OrderMasterDao;
 import com.zhzhgang.order.dao.ProductInfoDao;
 import com.zhzhgang.order.domain.OrderDetail;
+import com.zhzhgang.order.domain.OrderMaster;
 import com.zhzhgang.order.domain.ProductInfo;
+import com.zhzhgang.order.dto.CartDTO;
 import com.zhzhgang.order.dto.OrderDTO;
+import com.zhzhgang.order.enums.ResultEnum;
+import com.zhzhgang.order.exception.OrderException;
 import com.zhzhgang.order.service.OrderService;
 import com.zhzhgang.order.service.ProductInfoService;
+import com.zhzhgang.order.utils.KeyUtil;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by zhangzhonggang
@@ -35,20 +44,45 @@ public class OrderServiceImpl implements OrderService {
      * @param orderDTO
      */
     @Override
+    @Transactional
     public OrderDTO create(OrderDTO orderDTO) {
+
+        String orderId = KeyUtil.genUniqueKey();
+        BigDecimal orderAmount = new BigDecimal(0);
 
         // 1. 查询商品（数量，价格）
         for (OrderDetail orderDetail : orderDTO.getOrderDetailList()) {
             ProductInfo productInfo = productInfoService.findById(orderDetail.getProductId());
+            if (productInfo == null) {
+                throw new OrderException(ResultEnum.PRODUCT_NOT_EXIST);
+            }
+            // 2. 计算订单总价
+            orderAmount = productInfo.getProductPrice().multiply(new BigDecimal(orderDetail.getProductQuantity())).add(orderAmount);
+
+            // 3. 订单详情入库（order_detail）
+            BeanUtils.copyProperties(productInfo, orderDetail);
+            orderDetail.setDetailId(KeyUtil.genUniqueKey());
+            orderDetail.setOrderId(orderId);
+
+            orderDetailDao.save(orderDetail);
         }
 
-        // 2. 计算总价
+        // 4. 写入订单数据库（orderMaster）
+        OrderMaster orderMaster = new OrderMaster();
+        BeanUtils.copyProperties(orderDTO, orderMaster);
+        orderMaster.setOrderId(orderId);
+        orderMaster.setOrderAmount(orderAmount);
 
-        // 3. 写入订单数据库（order_master 和 order_detail）
+        orderMasterDao.save(orderMaster);
 
-        // 4. 扣库存
+        // 5. 扣库存
+        List<CartDTO> cartDTOList = orderDTO.getOrderDetailList().stream()
+                .map(e -> new CartDTO(e.getProductId(), e.getProductQuantity()))
+                .collect(Collectors.toList());
+        productInfoService.decreaseStock(cartDTOList);
 
-        return null;
+
+        return orderDTO;
     }
 
     /**
