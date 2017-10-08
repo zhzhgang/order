@@ -1,6 +1,8 @@
 package com.zhzhgang.order.domain;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 
@@ -9,7 +11,7 @@ import java.math.BigDecimal;
  * 2017-10-06 23:09
  */
 @Data
-public class OrderDetail {
+public class OrderDetail extends BaseEntity {
 
     private String detailId;
 

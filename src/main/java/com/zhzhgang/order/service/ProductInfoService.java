@@ -22,7 +22,7 @@ public interface ProductInfoService {
      */
     List<ProductInfo> findUpAll();
 
-    List<ProductInfo> findAll();
+    List<ProductInfo> findAll(ProductInfo productInfo);
 
     // 加库存
     void increaseStock(List<CartDTO> cartDTOList);

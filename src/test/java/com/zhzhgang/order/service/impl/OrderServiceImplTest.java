@@ -1,6 +1,8 @@
 package com.zhzhgang.order.service.impl;
 
+import com.github.pagehelper.PageInfo;
 import com.zhzhgang.order.domain.OrderDetail;
+import com.zhzhgang.order.domain.OrderMaster;
 import com.zhzhgang.order.dto.OrderDTO;
 import org.junit.Assert;
 import org.junit.Test;
@@ -51,11 +53,21 @@ public class OrderServiceImplTest {
     }
 
     @Test
-    public void findByOrderId() throws Exception {
+    public void testFindByOrderId() throws Exception {
+        String orderId = "1507389531839610036";
+        OrderDTO orderDTO = orderService.findByOrderId(orderId);
+        Assert.assertEquals(2, orderDTO.getOrderDetailList().size());
     }
 
     @Test
-    public void findOrderList() throws Exception {
+    public void testFindOrderList() throws Exception {
+        OrderMaster orderMaster = new OrderMaster();
+        orderMaster.setPage(1);
+        orderMaster.setRows(2);
+
+        List<OrderMaster> orderMasterList = orderService.findOrderList("abcd123", orderMaster);
+        PageInfo<OrderMaster> orderMasterPageInfo = new PageInfo<>(orderMasterList);
+        Assert.assertEquals(2, orderMasterPageInfo.getPages());
     }
 
     @Test

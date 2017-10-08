@@ -16,4 +16,6 @@ public interface OrderMasterDao {
 
     List<OrderMaster> findByBuyerOpenId(String buyerOpenId);
 
+    OrderMaster findByOrderId(String OrderId);
+
 }

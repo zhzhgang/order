@@ -13,7 +13,7 @@ import java.util.List;
  * 2017-10-06 18:23
  */
 @Data
-public class OrderMaster {
+public class OrderMaster extends BaseEntity {
 
     private String orderId;
 

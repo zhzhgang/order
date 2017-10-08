@@ -1,5 +1,8 @@
 package com.zhzhgang.order.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.zhzhgang.order.converter.OrderMaster2OrderDTOConverter;
 import com.zhzhgang.order.dao.OrderDetailDao;
 import com.zhzhgang.order.dao.OrderMasterDao;
 import com.zhzhgang.order.domain.OrderDetail;
@@ -18,6 +21,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -95,7 +99,19 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public OrderDTO findByOrderId(String orderId) {
-        return null;
+        OrderMaster orderMaster = orderMasterDao.findByOrderId(orderId);
+        if (orderMaster == null) {
+            throw new OrderException(ResultEnum.ORDER_NOT_EXIST);
+        }
+        List<OrderDetail> orderDetailList = orderDetailDao.findByOrderId(orderId);
+        if (CollectionUtils.isEmpty(orderDetailList)) {
+            throw new OrderException(ResultEnum.ORDERDETAIL_NOT_EXIST);
+        }
+        OrderDTO orderDTO = new OrderDTO();
+        BeanUtils.copyProperties(orderMaster, orderDTO);
+        orderDTO.setOrderDetailList(orderDetailList);
+
+        return orderDTO;
     }
 
     /**
@@ -104,8 +120,11 @@ public class OrderServiceImpl implements OrderService {
      * @param openId
      */
     @Override
-    public List<OrderDTO> findOrderList(String openId) {
-        return null;
+    public List<OrderMaster> findOrderList(String openId, OrderMaster orderMaster) {
+        if (orderMaster.getPage() != null && orderMaster.getRows() != null) {
+            PageHelper.startPage(orderMaster.getPage(), orderMaster.getRows());
+        }
+        return orderMasterDao.findByBuyerOpenId(openId);
     }
 
     /**

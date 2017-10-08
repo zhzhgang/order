@@ -1,5 +1,6 @@
 package com.zhzhgang.order.dto;
 
+import com.zhzhgang.order.domain.BaseEntity;
 import com.zhzhgang.order.domain.OrderDetail;
 import com.zhzhgang.order.enums.OrderStatusEnum;
 import com.zhzhgang.order.enums.PayStatusEnum;
@@ -14,7 +15,7 @@ import java.util.List;
  * 2017-10-07 15:49
  */
 @Data
-public class OrderDTO {
+public class OrderDTO extends BaseEntity {
 
     private String orderId;
 

@@ -45,8 +45,10 @@ public class ProductInfoServiceImpl implements ProductInfoService {
     }
 
     @Override
-    public List<ProductInfo> findAll() {
-        PageHelper.startPage(0, 1);
+    public List<ProductInfo> findAll(ProductInfo productInfo) {
+        if (productInfo.getPage() != null && productInfo.getRows() != null) {
+            PageHelper.startPage(productInfo.getPage(), productInfo.getRows());
+        }
         return productInfoDao.findAll();
     }
 

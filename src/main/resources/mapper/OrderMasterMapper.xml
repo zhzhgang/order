@@ -33,6 +33,24 @@
           buyer_openid = #{buyerOpenId}
     </select>
 
+    <select id="findByOrderId" parameterType="java.lang.String" resultMap="OrderMasterMap">
+        SELECT
+          order_id orderId,
+          buyer_name buyerName,
+          buyer_phone buyerPhone,
+          buyer_address buyerAddress,
+          buyer_openid buyerOpenId,
+          order_amount orderAmount,
+          order_status orderStatus,
+          pay_status payStatus,
+          ctime ctime,
+          utime utime
+        FROM
+          order_master
+        WHERE
+          order_id = #{orderId}
+    </select>
+
     <insert id="save" parameterType="OrderMaster" useGeneratedKeys="false" keyProperty="orderId">
         INSERT INTO order_master (
           order_id,

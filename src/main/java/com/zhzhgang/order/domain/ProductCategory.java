@@ -8,7 +8,7 @@ import lombok.Data;
  * 2017-10-04 14:19
  */
 @Data
-public class ProductCategory {
+public class ProductCategory extends BaseEntity {
 
     /** 类目 id. */
     private Integer categoryId;

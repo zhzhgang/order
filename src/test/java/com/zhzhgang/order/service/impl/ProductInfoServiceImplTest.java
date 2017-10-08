@@ -55,8 +55,8 @@ public class ProductInfoServiceImplTest {
 
     @Test
     public void testFindAll() throws Exception {
-        PageInfo<ProductInfo> result = new PageInfo<ProductInfo>(productInfoService.findAll());
-        Assert.assertEquals(2, result.getNextPage());
+        PageInfo<ProductInfo> result = new PageInfo<ProductInfo>(productInfoService.findAll(new ProductInfo()));
+        Assert.assertEquals(1, result.getPages());
     }
 
 }

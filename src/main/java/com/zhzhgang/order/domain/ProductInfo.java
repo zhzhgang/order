@@ -10,7 +10,7 @@ import java.math.BigDecimal;
  * 2017-10-05 15:48
  */
 @Data
-public class ProductInfo {
+public class ProductInfo extends BaseEntity {
 
     private String productId;
 

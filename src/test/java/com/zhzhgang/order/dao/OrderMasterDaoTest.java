@@ -49,4 +49,9 @@ public class OrderMasterDaoTest {
         Assert.assertNotNull(result);
     }
 
+    @Test
+    public void testFindByOrderId() {
+        OrderMaster orderMaster = orderMasterDao.findByOrderId("1507370234106553097");
+        Assert.assertNotNull(orderMaster);
+    }
 }

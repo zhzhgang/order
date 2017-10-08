@@ -1,6 +1,7 @@
 package com.zhzhgang.order.service;
 
 import com.zhzhgang.order.domain.OrderDetail;
+import com.zhzhgang.order.domain.OrderMaster;
 import com.zhzhgang.order.dto.OrderDTO;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public interface OrderService {
     OrderDTO findByOrderId(String orderId);
 
     /** 查询订单列表. */
-    List<OrderDTO> findOrderList(String openId);
+    List<OrderMaster> findOrderList(String openId, OrderMaster orderMaster);
 
     /** 取消订单. */
     OrderDTO cancel(OrderDTO orderDTO);
