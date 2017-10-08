@@ -18,4 +18,6 @@ public interface OrderMasterDao {
 
     OrderMaster findByOrderId(String OrderId);
 
+    void update(OrderMaster orderMaster);
+
 }

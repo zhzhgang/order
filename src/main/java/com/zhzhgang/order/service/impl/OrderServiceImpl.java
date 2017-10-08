@@ -1,8 +1,6 @@
 package com.zhzhgang.order.service.impl;
 
 import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import com.zhzhgang.order.converter.OrderMaster2OrderDTOConverter;
 import com.zhzhgang.order.dao.OrderDetailDao;
 import com.zhzhgang.order.dao.OrderMasterDao;
 import com.zhzhgang.order.domain.OrderDetail;
@@ -17,6 +15,7 @@ import com.zhzhgang.order.exception.OrderException;
 import com.zhzhgang.order.service.OrderService;
 import com.zhzhgang.order.service.ProductInfoService;
 import com.zhzhgang.order.utils.KeyUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +31,7 @@ import java.util.stream.Collectors;
  * 2017-10-07 15:58
  */
 @Service
+@Slf4j
 public class OrderServiceImpl implements OrderService {
 
     @Autowired
@@ -133,8 +133,45 @@ public class OrderServiceImpl implements OrderService {
      * @param orderDTO
      */
     @Override
+    @Transactional
     public OrderDTO cancel(OrderDTO orderDTO) {
-        return null;
+        // 1. 判断订单状态
+        if (!orderDTO.getOrderStatus().equals(OrderStatusEnum.NEW.getCode())) {
+            log.error("【取消订单】订单状态不正确，orderId = {}, orderStatus = {}", orderDTO.getOrderId(), orderDTO.getOrderStatus());
+            throw new OrderException(ResultEnum.ORDER_STATUS_ERROR);
+        }
+
+        // 2. 修改订单状态
+        OrderMaster orderMaster = new OrderMaster();
+        try {
+            orderDTO.setOrderStatus(OrderStatusEnum.CANCEL.getCode());
+            BeanUtils.copyProperties(orderDTO, orderMaster);
+            orderMasterDao.update(orderMaster);
+        } catch (Exception e) {
+            log.error("【取消订单】更新失败，orderMaster = {}", orderMaster, e);
+            throw new OrderException(ResultEnum.ORDER_UPDATE_FAIL);
+        }
+
+        // 3. 返回库存
+        if (CollectionUtils.isEmpty(orderDTO.getOrderDetailList())) {
+            log.error("【取消订单】订单中无商品详情，orderDTO = {}", orderDTO);
+            throw new OrderException(ResultEnum.ORDER_DETAIL_EMPTY);
+        }
+        List<CartDTO> cartDTOList = orderDTO.getOrderDetailList().stream()
+                .map(e -> new CartDTO(e.getProductId(), e.getProductQuantity()))
+                .collect(Collectors.toList());
+        try {
+            productInfoService.increaseStock(cartDTOList);
+        } catch (Exception e) {
+            log.error("【取消订单】更新失败，cartDTOList = {}", cartDTOList, e);
+            throw new OrderException(ResultEnum.ORDER_UPDATE_FAIL);
+        }
+
+        // 4. 如果已支付，退款
+        if (orderDTO.getPayStatus().equals(PayStatusEnum.SUCCESS.getCode())) {
+            // TODO
+        }
+        return orderDTO;
     }
 
     /**

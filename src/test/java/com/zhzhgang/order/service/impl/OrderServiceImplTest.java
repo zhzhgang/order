@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.zhzhgang.order.domain.OrderDetail;
 import com.zhzhgang.order.domain.OrderMaster;
 import com.zhzhgang.order.dto.OrderDTO;
+import com.zhzhgang.order.enums.OrderStatusEnum;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -72,6 +73,9 @@ public class OrderServiceImplTest {
 
     @Test
     public void cancel() throws Exception {
+        OrderDTO orderDTO = orderService.findByOrderId("1507389531839610036");
+        orderDTO = orderService.cancel(orderDTO);
+        Assert.assertEquals(OrderStatusEnum.CANCEL.getCode(), orderDTO.getOrderStatus());
     }
 
     @Test

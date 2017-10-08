@@ -71,6 +71,19 @@
           #{orderStatus},
           #{payStatus}
         )
-
     </insert>
+
+    <update id="update" parameterType="OrderMaster" >
+        UPDATE order_master
+        <trim prefix="SET" suffixOverrides=",">
+          <if test="null != buyerName">buyer_name = #{buyerName},</if>
+          <if test="null != buyerPhone">buyer_phone = #{buyerPhone},</if>
+          <if test="null != buyerAddress">buyer_address = #{buyerAddress},</if>
+          <if test="null != buyerOpenId">buyer_openId = #{buyerOpenId},</if>
+          <if test="null != orderAmount">order_amount = #{orderAmount},</if>
+          <if test="null != orderStatus">order_status = #{orderStatus},</if>
+          <if test="null != payStatus">pay_status = #{payStatus},</if>
+        </trim>
+        WHERE order_id = #{orderId}
+    </update>
 </mapper>

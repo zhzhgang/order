@@ -3,6 +3,7 @@ package com.zhzhgang.order.dao;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zhzhgang.order.domain.OrderMaster;
+import com.zhzhgang.order.enums.OrderStatusEnum;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -53,5 +54,12 @@ public class OrderMasterDaoTest {
     public void testFindByOrderId() {
         OrderMaster orderMaster = orderMasterDao.findByOrderId("1507370234106553097");
         Assert.assertNotNull(orderMaster);
+    }
+
+    @Test
+    public void testUpdate() {
+        OrderMaster orderMaster = orderMasterDao.findByOrderId("1507370234106553097");
+        orderMaster.setOrderStatus(OrderStatusEnum.FINISHED.getCode());
+        orderMasterDao.update(orderMaster);
     }
 }
