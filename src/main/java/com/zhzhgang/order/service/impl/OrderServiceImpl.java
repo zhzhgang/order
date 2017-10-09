@@ -180,8 +180,25 @@ public class OrderServiceImpl implements OrderService {
      * @param orderDTO
      */
     @Override
+    @Transactional
     public OrderDTO finish(OrderDTO orderDTO) {
-        return null;
+        // 1. 判断订单状态
+        if (!orderDTO.getOrderStatus().equals(OrderStatusEnum.NEW.getCode())) {
+            log.error("【完结订单】订单状态不正确，orderId = {}, orderStatus = {}", orderDTO.getOrderId(), orderDTO.getOrderStatus());
+            throw new OrderException(ResultEnum.ORDER_STATUS_ERROR);
+        }
+
+        // 2. 修改订单状态
+        OrderMaster orderMaster = new OrderMaster();
+        orderDTO.setOrderStatus(OrderStatusEnum.FINISHED.getCode());
+        BeanUtils.copyProperties(orderDTO, orderMaster);
+        try {
+            orderMasterDao.update(orderMaster);
+        } catch (Exception e) {
+            log.error("【完结订单】更新失败，orderMaster = {}", orderMaster, e);
+            throw new OrderException(ResultEnum.ORDER_UPDATE_FAIL);
+        }
+        return orderDTO;
     }
 
     /**
@@ -190,7 +207,30 @@ public class OrderServiceImpl implements OrderService {
      * @param orderDTO
      */
     @Override
+    @Transactional
     public OrderDTO pay(OrderDTO orderDTO) {
-        return null;
+        // 1. 判断订单状态
+        if (!orderDTO.getOrderStatus().equals(OrderStatusEnum.NEW.getCode())) {
+            log.error("【支付订单】订单状态不正确，orderId = {}, orderStatus = {}", orderDTO.getOrderId(), orderDTO.getOrderStatus());
+            throw new OrderException(ResultEnum.ORDER_STATUS_ERROR);
+        }
+
+        // 2. 判断支付状态
+        if (!orderDTO.getPayStatus().equals(PayStatusEnum.WAIT.getCode())) {
+            log.error("【支付订单】支付状态不正确，orderId = {}, payStatus = {}", orderDTO.getOrderId(), orderDTO.getPayStatus());
+            throw new OrderException(ResultEnum.ORDER_PAY_STATUS_ERROR);
+        }
+
+        // 3. 修改支付状态
+        OrderMaster orderMaster = new OrderMaster();
+        orderDTO.setPayStatus(PayStatusEnum.SUCCESS.getCode());
+        BeanUtils.copyProperties(orderDTO, orderMaster);
+        try {
+            orderMasterDao.update(orderMaster);
+        } catch (Exception e) {
+            log.error("【支付订单】更新失败，orderMaster = {}", orderMaster, e);
+            throw new OrderException(ResultEnum.ORDER_UPDATE_FAIL);
+        }
+        return orderDTO ;
     }
 }

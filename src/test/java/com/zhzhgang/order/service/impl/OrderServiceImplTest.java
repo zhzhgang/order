@@ -5,6 +5,7 @@ import com.zhzhgang.order.domain.OrderDetail;
 import com.zhzhgang.order.domain.OrderMaster;
 import com.zhzhgang.order.dto.OrderDTO;
 import com.zhzhgang.order.enums.OrderStatusEnum;
+import com.zhzhgang.order.enums.PayStatusEnum;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -72,18 +73,24 @@ public class OrderServiceImplTest {
     }
 
     @Test
-    public void cancel() throws Exception {
+    public void testCancel() throws Exception {
         OrderDTO orderDTO = orderService.findByOrderId("1507389531839610036");
         orderDTO = orderService.cancel(orderDTO);
         Assert.assertEquals(OrderStatusEnum.CANCEL.getCode(), orderDTO.getOrderStatus());
     }
 
     @Test
-    public void finish() throws Exception {
+    public void testFinish() throws Exception {
+        OrderDTO orderDTO = orderService.findByOrderId("206c4d7c-f52b1507309490534");
+        orderDTO = orderService.finish(orderDTO);
+        Assert.assertEquals(OrderStatusEnum.FINISHED.getCode(), orderDTO.getOrderStatus());
     }
 
     @Test
-    public void pay() throws Exception {
+    public void testPay() throws Exception {
+        OrderDTO orderDTO = orderService.findByOrderId("206c4d7c-f52b1507309490534");
+        orderDTO = orderService.pay(orderDTO);
+        Assert.assertEquals(PayStatusEnum.SUCCESS.getCode(), orderDTO.getPayStatus());
     }
 
 }
