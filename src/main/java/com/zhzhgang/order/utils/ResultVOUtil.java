@@ -1,6 +1,6 @@
 package com.zhzhgang.order.utils;
 
-import com.zhzhgang.order.VO.ResultVO;
+import com.zhzhgang.order.vo.ResultVO;
 
 /**
  * Created by zhangzhonggang

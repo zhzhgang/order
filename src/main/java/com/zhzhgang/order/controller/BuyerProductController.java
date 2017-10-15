@@ -1,13 +1,12 @@
 package com.zhzhgang.order.controller;
 
-import com.zhzhgang.order.VO.ProductInfoVO;
-import com.zhzhgang.order.VO.ProductVO;
-import com.zhzhgang.order.VO.ResultVO;
+import com.zhzhgang.order.vo.ProductInfoVO;
+import com.zhzhgang.order.vo.ProductVO;
+import com.zhzhgang.order.vo.ResultVO;
 import com.zhzhgang.order.domain.ProductCategory;
 import com.zhzhgang.order.domain.ProductInfo;
 import com.zhzhgang.order.service.ProductCategoryService;
 import com.zhzhgang.order.service.ProductInfoService;
-import com.zhzhgang.order.service.impl.ProductInfoServiceImpl;
 import com.zhzhgang.order.utils.ResultVOUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 

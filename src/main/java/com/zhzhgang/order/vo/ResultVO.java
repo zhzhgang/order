@@ -1,4 +1,4 @@
-package com.zhzhgang.order.VO;
+package com.zhzhgang.order.vo;
 
 import lombok.Data;
 

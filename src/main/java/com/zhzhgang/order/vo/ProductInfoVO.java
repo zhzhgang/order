@@ -1,4 +1,4 @@
-package com.zhzhgang.order.VO;
+package com.zhzhgang.order.vo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
