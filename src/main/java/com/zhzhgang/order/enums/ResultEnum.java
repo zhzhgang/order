@@ -27,6 +27,8 @@ public enum ResultEnum {
 
     ORDER_PAY_STATUS_ERROR(17, "支付状态不正确"),
 
+    CART_EMPTY(18, "购物车为空"),
+
     ;
 
 
