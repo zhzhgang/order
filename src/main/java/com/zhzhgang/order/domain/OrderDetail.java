@@ -11,7 +11,7 @@ import java.math.BigDecimal;
  * 2017-10-06 23:09
  */
 @Data
-public class OrderDetail extends BaseEntity {
+public class OrderDetail {
 
     private String detailId;
 
