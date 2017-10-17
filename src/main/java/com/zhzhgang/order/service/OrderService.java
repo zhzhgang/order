@@ -21,6 +21,9 @@ public interface OrderService {
     /** 查询订单列表. */
     List<OrderMaster> findOrderList(String openId, OrderMaster orderMaster);
 
+    /** 查询订单列表（卖家端）. */
+    List<OrderMaster> findOrderList(OrderMaster orderMaster);
+
     /** 取消订单. */
     OrderDTO cancel(OrderDTO orderDTO);
 

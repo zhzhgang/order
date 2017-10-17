@@ -234,4 +234,17 @@ public class OrderServiceImpl implements OrderService {
         }
         return orderDTO ;
     }
+
+    /**
+     * 查询订单列表（卖家端）.
+     *
+     * @param orderMaster
+     */
+    @Override
+    public List<OrderMaster> findOrderList(OrderMaster orderMaster) {
+        if (orderMaster.getPage() != null && orderMaster.getRows() != null) {
+            PageHelper.startPage(orderMaster.getPage(), orderMaster.getRows());
+        }
+        return orderMasterDao.findAll();
+    }
 }

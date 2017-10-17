@@ -93,4 +93,14 @@ public class OrderServiceImplTest {
         Assert.assertEquals(PayStatusEnum.SUCCESS.getCode(), orderDTO.getPayStatus());
     }
 
+    @Test
+    public void testFindAll() {
+        OrderMaster orderMaster = new OrderMaster();
+        orderMaster.setPage(1);
+        orderMaster.setRows(10);
+        List<OrderMaster> orderMasterList = orderService.findOrderList(orderMaster);
+        System.out.println(orderMasterList);
+        Assert.assertNotEquals(0, orderMasterList.size());
+    }
+
 }

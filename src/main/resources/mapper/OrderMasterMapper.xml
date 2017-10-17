@@ -86,4 +86,22 @@
         </trim>
         WHERE order_id = #{orderId}
     </update>
+
+    <select id="findAll" resultMap="OrderMasterMap">
+        SELECT
+          order_id orderId,
+          buyer_name buyerName,
+          buyer_phone buyerPhone,
+          buyer_address buyerAddress,
+          buyer_openid buyerOpenId,
+          order_amount orderAmount,
+          order_status orderStatus,
+          pay_status payStatus,
+          ctime ctime,
+          utime utime
+        FROM
+          order_master
+        WHERE
+          status = 'a'
+    </select>
 </mapper>

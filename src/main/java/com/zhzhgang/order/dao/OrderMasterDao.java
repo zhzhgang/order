@@ -20,4 +20,6 @@ public interface OrderMasterDao {
 
     void update(OrderMaster orderMaster);
 
+    List<OrderMaster> findAll();
+
 }
