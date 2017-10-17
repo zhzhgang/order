@@ -51,14 +51,4 @@ public class OrderDTO {
     private Date utime;
 
     private List<OrderDetail> orderDetailList;
-
-    @JsonIgnore
-    public OrderStatusEnum getOrderStatusEnum() {
-        return EnumUtil.getByCode(orderStatus, OrderStatusEnum.class);
-    }
-
-    @JsonIgnore
-    public PayStatusEnum getPayStatusEnum() {
-        return EnumUtil.getByCode(payStatus, PayStatusEnum.class);
-    }
 }

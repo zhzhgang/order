@@ -5,5 +5,8 @@ package com.zhzhgang.order.enums;
  * 2017-10-17 19:54
  */
 public interface CodeEnum {
+
     Integer getCode();
+
+    String getMsg();
 }

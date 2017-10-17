@@ -1,7 +1,9 @@
 package com.zhzhgang.order.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zhzhgang.order.enums.OrderStatusEnum;
 import com.zhzhgang.order.enums.PayStatusEnum;
+import com.zhzhgang.order.utils.EnumUtil;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -36,4 +38,14 @@ public class OrderMaster extends BaseEntity {
     private Date ctime;
 
     private Date utime;
+
+    @JsonIgnore
+    public String getOrderStatusEnum() {
+        return EnumUtil.getMsgByCode(orderStatus, OrderStatusEnum.class);
+    }
+
+    @JsonIgnore
+    public String getPayStatusEnum() {
+        return EnumUtil.getMsgByCode(payStatus, PayStatusEnum.class);
+    }
 }

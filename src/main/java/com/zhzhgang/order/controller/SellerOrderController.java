@@ -36,15 +36,15 @@ public class SellerOrderController {
      */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ModelAndView list(@RequestParam(value = "page", defaultValue = "1") Integer page,
-                             @RequestParam(value = "size", defaultValue = "10") Integer size,
+                             @RequestParam(value = "size", defaultValue = "3") Integer size,
                              Map<String, Object> map) {
 
         OrderMaster orderMaster = new OrderMaster();
         orderMaster.setPage(page);
         orderMaster.setRows(size);
 
-        List<OrderDTO> orderDTOList = OrderMaster2OrderDTOConverter.convert(orderService.findOrderList(orderMaster));
-        PageInfo<OrderDTO> pageInfo = new PageInfo<>(orderDTOList);
+        List<OrderMaster> orderMasterList = orderService.findOrderList(orderMaster);
+        PageInfo<OrderMaster> pageInfo = new PageInfo<>(orderMasterList);
         map.put("pageInfo", pageInfo);
 
         return new ModelAndView("order/list", map);

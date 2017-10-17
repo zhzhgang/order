@@ -1,4 +1,4 @@
-<html>
+<html xmlns="http://www.w3.org/1999/html">
     <head>
         <meta charset="utf-8">
         <title>商品列表</title>
@@ -24,22 +24,47 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <#list pageInfo.list as orderDTO>
+                        <#list pageInfo.list as orderMaster>
                             <tr>
-                                <td>${orderDTO.orderId}</td>
-                                <td>${orderDTO.buyerName}</td>
-                                <td>${orderDTO.buyerPhone}</td>
-                                <td>${orderDTO.buyerAddress}</td>
-                                <td>${orderDTO.orderAmount}</td>
-                                <td>${orderDTO.orderStatus}</td>
-                                <td>${orderDTO.payStatus}</td>
-                                <td>${orderDTO.ctime?string('yyyy-MM-dd HH:mm:ss')}</td>
+                                <td>${orderMaster.orderId}</td>
+                                <td>${orderMaster.buyerName}</td>
+                                <td>${orderMaster.buyerPhone}</td>
+                                <td>${orderMaster.buyerAddress}</td>
+                                <td>${orderMaster.orderAmount}</td>
+                                <td>${orderMaster.getOrderStatusEnum()}</td>
+                                <td>${orderMaster.getPayStatusEnum()}</td>
+                                <td>${orderMaster.ctime?string('yyyy-MM-dd HH:mm:ss')}</td>
                                 <td>详情</td>
                                 <td>取消</td>
                             </tr>
                         </#list>
                         </tbody>
                     </table>
+                </div>
+
+                <#--分页-->
+                <div class="col-md-12 column">
+                    <ul class="pagination pull-right">
+                        <#if pageInfo.isFirstPage>
+                            <li class="disabled"><a href="#">上一页</a></li>
+                        <#else>
+                            <li><a href="/sell/seller/order/list?page=${pageInfo.pageNum-1}&size=${pageInfo.pageSize}">上一页</a></li>
+                        </#if>
+
+                        <#list 1..pageInfo.pages as page>
+                            <#if pageInfo.pageNum == page>
+                                <li class="disabled"><a href="#">${page}</a></li>
+                            <#else>
+                                <li><a href="/sell/seller/order/list?page=${page}&size=${pageInfo.pageSize}">${page}</a></li>
+                            </#if>
+                        </#list>
+
+                        <#if pageInfo.isLastPage>
+                            <li class="disabled"><a href="#">下一页</a></li>
+                        <#else>
+                            <li><a href="/sell/seller/order/list?page=${pageInfo.pageNum+1}&size=${pageInfo.pageSize}">下一页</a></li>
+                        </#if>
+                    </ul>
                 </div>
             </div>
         </div>
