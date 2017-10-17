@@ -9,102 +9,40 @@
         <div class="container">
             <div class="row clearfix">
                 <div class="col-md-12 column">
-                    <table class="table table-condensed table-hover table-bordered">
+                    <table class="table table-hover table-bordered">
                         <thead>
                         <tr>
-                            <th>
-                                编号
-                            </th>
-                            <th>
-                                产品
-                            </th>
-                            <th>
-                                交付时间
-                            </th>
-                            <th>
-                                状态
-                            </th>
+                            <th>订单编号</th>
+                            <th>姓名</th>
+                            <th>手机号</th>
+                            <th>地址</th>
+                            <th>金额</th>
+                            <th>订单状态</th>
+                            <th>支付状态</th>
+                            <th>创建时间</th>
+                            <th colspan="2">操作</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>
-                                1
-                            </td>
-                            <td>
-                                TB - Monthly
-                            </td>
-                            <td>
-                                01/04/2012
-                            </td>
-                            <td>
-                                Default
-                            </td>
-                        </tr>
-                        <tr class="success">
-                            <td>
-                                1
-                            </td>
-                            <td>
-                                TB - Monthly
-                            </td>
-                            <td>
-                                01/04/2012
-                            </td>
-                            <td>
-                                Approved
-                            </td>
-                        </tr>
-                        <tr class="error">
-                            <td>
-                                2
-                            </td>
-                            <td>
-                                TB - Monthly
-                            </td>
-                            <td>
-                                02/04/2012
-                            </td>
-                            <td>
-                                Declined
-                            </td>
-                        </tr>
-                        <tr class="warning">
-                            <td>
-                                3
-                            </td>
-                            <td>
-                                TB - Monthly
-                            </td>
-                            <td>
-                                03/04/2012
-                            </td>
-                            <td>
-                                Pending
-                            </td>
-                        </tr>
-                        <tr class="info">
-                            <td>
-                                4
-                            </td>
-                            <td>
-                                TB - Monthly
-                            </td>
-                            <td>
-                                04/04/2012
-                            </td>
-                            <td>
-                                Call in to confirm
-                            </td>
-                        </tr>
+                        <#list pageInfo.list as orderDTO>
+                            <tr>
+                                <td>${orderDTO.orderId}</td>
+                                <td>${orderDTO.buyerName}</td>
+                                <td>${orderDTO.buyerPhone}</td>
+                                <td>${orderDTO.buyerAddress}</td>
+                                <td>${orderDTO.orderAmount}</td>
+                                <td>${orderDTO.orderStatus}</td>
+                                <td>${orderDTO.payStatus}</td>
+                                <td>${orderDTO.ctime?string('yyyy-MM-dd HH:mm:ss')}</td>
+                                <td>详情</td>
+                                <td>取消</td>
+                            </tr>
+                        </#list>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </body>
-<#--<#list pageInfo.list as orderDTO>-->
-    <#--${orderDTO.orderId}<br>-->
-<#--</#list>-->
 
 </html>

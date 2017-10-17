@@ -1,5 +1,6 @@
 package com.zhzhgang.order.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -7,6 +8,7 @@ import com.zhzhgang.order.domain.BaseEntity;
 import com.zhzhgang.order.domain.OrderDetail;
 import com.zhzhgang.order.enums.OrderStatusEnum;
 import com.zhzhgang.order.enums.PayStatusEnum;
+import com.zhzhgang.order.utils.EnumUtil;
 import com.zhzhgang.order.utils.serializer.Date2LongSerializer;
 import lombok.Data;
 
@@ -49,4 +51,14 @@ public class OrderDTO {
     private Date utime;
 
     private List<OrderDetail> orderDetailList;
+
+    @JsonIgnore
+    public OrderStatusEnum getOrderStatusEnum() {
+        return EnumUtil.getByCode(orderStatus, OrderStatusEnum.class);
+    }
+
+    @JsonIgnore
+    public PayStatusEnum getPayStatusEnum() {
+        return EnumUtil.getByCode(payStatus, PayStatusEnum.class);
+    }
 }

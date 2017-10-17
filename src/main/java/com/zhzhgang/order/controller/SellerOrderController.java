@@ -1,7 +1,9 @@
 package com.zhzhgang.order.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.zhzhgang.order.converter.OrderMaster2OrderDTOConverter;
 import com.zhzhgang.order.domain.OrderMaster;
+import com.zhzhgang.order.dto.OrderDTO;
 import com.zhzhgang.order.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +43,8 @@ public class SellerOrderController {
         orderMaster.setPage(page);
         orderMaster.setRows(size);
 
-        List<OrderMaster> orderMasterList = orderService.findOrderList(orderMaster);
-        PageInfo<OrderMaster> pageInfo = new PageInfo<>(orderMasterList);
+        List<OrderDTO> orderDTOList = OrderMaster2OrderDTOConverter.convert(orderService.findOrderList(orderMaster));
+        PageInfo<OrderDTO> pageInfo = new PageInfo<>(orderDTOList);
         map.put("pageInfo", pageInfo);
 
         return new ModelAndView("order/list", map);
