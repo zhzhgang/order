@@ -137,7 +137,7 @@ size: 10
 ```
 
 
-#### 2.3 查询订单详情
+#### 2.3 订单详情
 
 ```
 GET /sell/buyer/order/detail
@@ -180,5 +180,28 @@ orderId: 161899085773669363
             }
         ]
     }
+}
+```
+
+#### 2.4 取消订单
+
+```
+POST /sell/buyer/order/cancel
+```
+
+参数
+
+```
+openid: 18eu2jwk2kse3r42e2e
+orderId: 161899085773669363
+```
+
+返回
+
+```
+{
+    "code": 0,
+    "msg": "成功",
+    "data": null
 }
 ```

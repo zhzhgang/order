@@ -8,11 +8,9 @@ import com.zhzhgang.order.enums.ResultEnum;
 import com.zhzhgang.order.exception.OrderException;
 import com.zhzhgang.order.form.OrderForm;
 import com.zhzhgang.order.service.OrderService;
-import com.zhzhgang.order.service.impl.OrderServiceImpl;
 import com.zhzhgang.order.utils.ResultVOUtil;
 import com.zhzhgang.order.vo.ResultVO;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -96,5 +94,27 @@ public class BuyerOrderController {
     }
 
     // 取消订单
+    @RequestMapping(value = "/cancel", method = RequestMethod.POST)
+    public ResultVO cancel(@RequestParam("openid") String openid,
+                           @RequestParam("orderId") String orderId) {
+
+        if (StringUtils.isEmpty(openid)) {
+            log.error("【取消订单】openid 为空");
+            throw new OrderException(ResultEnum.PARAM_ERROR);
+        }
+        if (StringUtils.isEmpty(orderId)) {
+            log.error("【取消订单】orderId 为空");
+            throw new OrderException(ResultEnum.PARAM_ERROR);
+        }
+        OrderDTO orderDTO = orderService.findByOrderId(orderId);
+        if (orderDTO == null) {
+            log.error("【取消订单】订单不存在，orderId = {}", orderId);
+            throw new OrderException(ResultEnum.ORDER_NOT_EXIST);
+        }
+
+        // TODO 不安全
+        orderService.cancel(orderDTO);
+        return ResultVOUtil.success();
+    }
 
 }
