@@ -7,6 +7,7 @@ import com.zhzhgang.order.dto.OrderDTO;
 import com.zhzhgang.order.enums.ResultEnum;
 import com.zhzhgang.order.exception.OrderException;
 import com.zhzhgang.order.form.OrderForm;
+import com.zhzhgang.order.service.BuyerService;
 import com.zhzhgang.order.service.OrderService;
 import com.zhzhgang.order.utils.ResultVOUtil;
 import com.zhzhgang.order.vo.ResultVO;
@@ -33,6 +34,9 @@ public class BuyerOrderController {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private BuyerService buyerService;
 
     // 创建订单
     @RequestMapping(value = "/create", method = RequestMethod.POST)
@@ -80,17 +84,7 @@ public class BuyerOrderController {
     public ResultVO<OrderDTO> detail(@RequestParam("openid") String openid,
                                      @RequestParam("orderId") String orderId) {
 
-        if (StringUtils.isEmpty(openid)) {
-            log.error("【查询订单详情】openid 为空");
-            throw new OrderException(ResultEnum.PARAM_ERROR);
-        }
-        if (StringUtils.isEmpty(orderId)) {
-            log.error("【查询订单详情】orderId 为空");
-            throw new OrderException(ResultEnum.PARAM_ERROR);
-        }
-
-        // TODO 不安全
-        return ResultVOUtil.success(orderService.findByOrderId(orderId));
+        return ResultVOUtil.success(buyerService.findOrderOne(openid, orderId));
     }
 
     // 取消订单
@@ -98,22 +92,7 @@ public class BuyerOrderController {
     public ResultVO cancel(@RequestParam("openid") String openid,
                            @RequestParam("orderId") String orderId) {
 
-        if (StringUtils.isEmpty(openid)) {
-            log.error("【取消订单】openid 为空");
-            throw new OrderException(ResultEnum.PARAM_ERROR);
-        }
-        if (StringUtils.isEmpty(orderId)) {
-            log.error("【取消订单】orderId 为空");
-            throw new OrderException(ResultEnum.PARAM_ERROR);
-        }
-        OrderDTO orderDTO = orderService.findByOrderId(orderId);
-        if (orderDTO == null) {
-            log.error("【取消订单】订单不存在，orderId = {}", orderId);
-            throw new OrderException(ResultEnum.ORDER_NOT_EXIST);
-        }
-
-        // TODO 不安全
-        orderService.cancel(orderDTO);
+        buyerService.cancelOrder(openid, orderId);
         return ResultVOUtil.success();
     }
 
