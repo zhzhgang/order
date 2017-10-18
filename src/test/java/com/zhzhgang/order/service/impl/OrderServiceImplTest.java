@@ -45,7 +45,7 @@ public class OrderServiceImplTest {
 
         OrderDetail O2 = new OrderDetail();
         O2.setProductId("16b3f8f2-cd151507194585011");
-        O2.setProductQuantity(1);
+        O2.setProductQuantity(2);
         orderDetailList.add(O1);
         orderDetailList.add(O2);
 

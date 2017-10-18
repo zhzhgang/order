@@ -1,6 +1,7 @@
 package com.zhzhgang.order.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.page.PageParams;
 import com.zhzhgang.order.dao.OrderDetailDao;
 import com.zhzhgang.order.dao.OrderMasterDao;
 import com.zhzhgang.order.domain.OrderDetail;
@@ -125,6 +126,7 @@ public class OrderServiceImpl implements OrderService {
         if (orderMaster.getPage() != null && orderMaster.getRows() != null) {
             PageHelper.startPage(orderMaster.getPage(), orderMaster.getRows());
         }
+        PageHelper.orderBy("ctime desc");
         return orderMasterDao.findByBuyerOpenId(openId);
     }
 
@@ -245,6 +247,7 @@ public class OrderServiceImpl implements OrderService {
         if (orderMaster.getPage() != null && orderMaster.getRows() != null) {
             PageHelper.startPage(orderMaster.getPage(), orderMaster.getRows());
         }
+        PageHelper.orderBy("ctime desc");
         return orderMasterDao.findAll();
     }
 }

@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/html">
     <head>
         <meta charset="utf-8">
-        <title>商品列表</title>
+        <title>订单列表</title>
         <link href="https://cdn.bootcss.com/bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet">
     </head>
 
@@ -34,7 +34,7 @@
                                 <td>${orderMaster.getOrderStatusEnum()}</td>
                                 <td>${orderMaster.getPayStatusEnum()}</td>
                                 <td>${orderMaster.ctime?string('yyyy-MM-dd HH:mm:ss')}</td>
-                                <td><a href="">详情</a></td>
+                                <td><a href="/sell/seller/order/detail?orderId=${orderMaster.orderId}">详情</a></td>
                                 <td>
                                     <#if orderMaster.orderStatus != 2 >
                                         <a href="/sell/seller/order/cancel?orderId=${orderMaster.orderId}">取消</a>
