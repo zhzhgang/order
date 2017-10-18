@@ -4,6 +4,8 @@ import com.github.pagehelper.PageInfo;
 import com.zhzhgang.order.converter.OrderMaster2OrderDTOConverter;
 import com.zhzhgang.order.domain.OrderMaster;
 import com.zhzhgang.order.dto.OrderDTO;
+import com.zhzhgang.order.enums.ResultEnum;
+import com.zhzhgang.order.exception.OrderException;
 import com.zhzhgang.order.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +38,7 @@ public class SellerOrderController {
      */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ModelAndView list(@RequestParam(value = "page", defaultValue = "1") Integer page,
-                             @RequestParam(value = "size", defaultValue = "3") Integer size,
+                             @RequestParam(value = "size", defaultValue = "10") Integer size,
                              Map<String, Object> map) {
 
         OrderMaster orderMaster = new OrderMaster();
@@ -48,5 +50,23 @@ public class SellerOrderController {
         map.put("pageInfo", pageInfo);
 
         return new ModelAndView("order/list", map);
+    }
+
+    @RequestMapping(value = "cancel", method = RequestMethod.GET)
+    public ModelAndView cancel(@RequestParam("orderId") String orderId, Map<String, Object> map) {
+
+        try {
+            OrderDTO orderDTO = orderService.findByOrderId(orderId);
+            orderService.cancel(orderDTO);
+        } catch (OrderException e) {
+            log.error("【卖家端取消订单】发生异常{}", e);
+            map.put("msg", e.getMessage());
+            map.put("url", "/sell/seller/order/list");
+            return new ModelAndView("common/error", map);
+        }
+
+        map.put("msg", ResultEnum.ORDER_CANCEL_SUCCESS.getMessage());
+        map.put("url", "/sell/seller/order/list");
+        return new ModelAndView("common/success", map);
     }
 }

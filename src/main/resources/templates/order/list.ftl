@@ -34,8 +34,12 @@
                                 <td>${orderMaster.getOrderStatusEnum()}</td>
                                 <td>${orderMaster.getPayStatusEnum()}</td>
                                 <td>${orderMaster.ctime?string('yyyy-MM-dd HH:mm:ss')}</td>
-                                <td>详情</td>
-                                <td>取消</td>
+                                <td><a href="">详情</a></td>
+                                <td>
+                                    <#if orderMaster.orderStatus != 2 >
+                                        <a href="/sell/seller/order/cancel?orderId=${orderMaster.orderId}">取消</a>
+                                    </#if>
+                                </td>
                             </tr>
                         </#list>
                         </tbody>
@@ -45,6 +49,7 @@
                 <#--分页-->
                 <div class="col-md-12 column">
                     <ul class="pagination pull-right">
+
                         <#if pageInfo.isFirstPage>
                             <li class="disabled"><a href="#">上一页</a></li>
                         <#else>
