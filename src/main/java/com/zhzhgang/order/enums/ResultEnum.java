@@ -35,6 +35,8 @@ public enum ResultEnum {
 
     ORDER_CANCEL_SUCCESS(22, "订单取消成功"),
 
+    ORDER_FINISH_SUCCESS(23, "订单完结成功"),
+
     ;
 
 

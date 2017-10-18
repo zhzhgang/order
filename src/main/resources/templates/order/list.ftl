@@ -36,7 +36,7 @@
                                 <td>${orderMaster.ctime?string('yyyy-MM-dd HH:mm:ss')}</td>
                                 <td><a href="/sell/seller/order/detail?orderId=${orderMaster.orderId}">详情</a></td>
                                 <td>
-                                    <#if orderMaster.orderStatus != 2 >
+                                    <#if orderMaster.orderStatus == 0 >
                                         <a href="/sell/seller/order/cancel?orderId=${orderMaster.orderId}">取消</a>
                                     </#if>
                                 </td>
