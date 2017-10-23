@@ -1,6 +1,5 @@
 package com.zhzhgang.order.enums;
 
-import lombok.Data;
 import lombok.Getter;
 
 /**
@@ -9,21 +8,21 @@ import lombok.Getter;
  * 2017-10-05 22:54
  */
 @Getter
-public enum ProductStatusEnum {
+public enum ProductStatusEnum implements CodeEnum {
     UP(0, "在架"),
     DOWN(1, "下架")
     ;
 
     private Integer code;
 
-    private String message;
+    private String msg;
 
     ProductStatusEnum(Integer code) {
         this.code = code;
     }
 
-    ProductStatusEnum(Integer code, String message) {
+    ProductStatusEnum(Integer code, String msg) {
         this.code = code;
-        this.message = message;
+        this.msg = msg;
     }
 }

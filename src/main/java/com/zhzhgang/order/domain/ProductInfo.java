@@ -1,8 +1,13 @@
 package com.zhzhgang.order.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.zhzhgang.order.enums.ProductStatusEnum;
+import com.zhzhgang.order.utils.EnumUtil;
 import lombok.Data;
+import org.omg.CORBA.PUBLIC_MEMBER;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * 商品信息实体类
@@ -34,4 +39,13 @@ public class ProductInfo extends BaseEntity {
 
     /** 类目编号. */
     private Integer categoryType;
+
+    private Date ctime;
+
+    private Date utime;
+
+    @JsonIgnore
+    public ProductStatusEnum getProductStatusEnum() {
+        return EnumUtil.getByCode(productStatus, ProductStatusEnum.class);
+    }
 }

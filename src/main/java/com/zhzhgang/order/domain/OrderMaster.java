@@ -8,7 +8,6 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by zhangzhonggang
@@ -40,12 +39,12 @@ public class OrderMaster extends BaseEntity {
     private Date utime;
 
     @JsonIgnore
-    public String getOrderStatusEnum() {
-        return EnumUtil.getMsgByCode(orderStatus, OrderStatusEnum.class);
+    public OrderStatusEnum getOrderStatusEnum() {
+        return EnumUtil.getByCode(orderStatus, OrderStatusEnum.class);
     }
 
     @JsonIgnore
-    public String getPayStatusEnum() {
-        return EnumUtil.getMsgByCode(payStatus, PayStatusEnum.class);
+    public PayStatusEnum getPayStatusEnum() {
+        return EnumUtil.getByCode(payStatus, PayStatusEnum.class);
     }
 }

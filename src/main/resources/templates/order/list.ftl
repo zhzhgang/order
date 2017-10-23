@@ -34,8 +34,8 @@
                                     <td>${orderMaster.buyerPhone}</td>
                                     <td>${orderMaster.buyerAddress}</td>
                                     <td>${orderMaster.orderAmount}</td>
-                                    <td>${orderMaster.getOrderStatusEnum()}</td>
-                                    <td>${orderMaster.getPayStatusEnum()}</td>
+                                    <td>${orderMaster.getOrderStatusEnum().msg}</td>
+                                    <td>${orderMaster.getPayStatusEnum().msg}</td>
                                     <td>${orderMaster.ctime?string('yyyy-MM-dd HH:mm:ss')}</td>
                                     <td><a href="/sell/seller/order/detail?orderId=${orderMaster.orderId}">详情</a></td>
                                     <td>

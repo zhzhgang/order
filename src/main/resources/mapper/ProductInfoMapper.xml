@@ -11,6 +11,8 @@
         <result column="product_icon" property="productIcon"></result>
         <result column="product_status" property="productStatus"></result>
         <result column="category_type" property="categoryType"></result>
+        <result column="ctime" property="ctime"></result>
+        <result column="utime" property="utime"></result>
     </resultMap>
 
     <select id="findById" parameterType="java.lang.String" resultMap="productInfoMap">
@@ -22,7 +24,9 @@
           product_desc,
           product_icon,
           product_status,
-          category_type
+          category_type,
+          ctime ctime,
+          utime utime
         FROM
           product_info
         WHERE
@@ -38,7 +42,9 @@
             product_desc,
             product_icon,
             product_status,
-            category_type
+            category_type,
+            ctime ctime,
+            utime utime
         FROM
           product_info
     </select>
@@ -52,7 +58,9 @@
           product_desc,
           product_icon,
           product_status,
-          category_type
+          category_type,
+          ctime ctime,
+          utime utime
         FROM
           product_info
         WHERE
