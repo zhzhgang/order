@@ -81,4 +81,44 @@ public class ProductInfoServiceImpl implements ProductInfoService {
             productInfoDao.update(productInfo);
         }
     }
+
+    /**
+     * 上架
+     *
+     * @param productId
+     * @return
+     */
+    @Override
+    public ProductInfo onSale(String productId) {
+        ProductInfo productInfo = productInfoDao.findById(productId);
+        if (productInfo == null) {
+            throw new OrderException(ResultEnum.PRODUCT_NOT_EXIST);
+        }
+        if (productInfo.getProductStatus().equals(ProductStatusEnum.UP.getCode())) {
+            throw new OrderException(ResultEnum.PRODUCT_STATUS_ERROR);
+        }
+        productInfo.setProductStatus(ProductStatusEnum.UP.getCode());
+        productInfoDao.update(productInfo);
+        return productInfo;
+    }
+
+    /**
+     * 下架
+     *
+     * @param productId
+     * @return
+     */
+    @Override
+    public ProductInfo offSale(String productId) {
+        ProductInfo productInfo = productInfoDao.findById(productId);
+        if (productInfo == null) {
+            throw new OrderException(ResultEnum.PRODUCT_NOT_EXIST);
+        }
+        if (productInfo.getProductStatus().equals(ProductStatusEnum.DOWN.getCode())) {
+            throw new OrderException(ResultEnum.PRODUCT_STATUS_ERROR);
+        }
+        productInfo.setProductStatus(ProductStatusEnum.DOWN.getCode());
+        productInfoDao.update(productInfo);
+        return productInfo;
+    }
 }

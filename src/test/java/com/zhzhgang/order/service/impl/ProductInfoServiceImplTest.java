@@ -2,6 +2,7 @@ package com.zhzhgang.order.service.impl;
 
 import com.github.pagehelper.PageInfo;
 import com.zhzhgang.order.domain.ProductInfo;
+import com.zhzhgang.order.enums.ProductStatusEnum;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -57,6 +58,18 @@ public class ProductInfoServiceImplTest {
     public void testFindAll() throws Exception {
         PageInfo<ProductInfo> result = new PageInfo<ProductInfo>(productInfoService.findAll(new ProductInfo()));
         Assert.assertEquals(1, result.getPages());
+    }
+
+    @Test
+    public void testOnSale() throws Exception {
+        ProductInfo productInfo = productInfoService.onSale("16b3f8f2-cd151507194585011");
+        Assert.assertNotNull(productInfo);
+    }
+
+    @Test
+    public void testOffSale() throws Exception {
+        ProductInfo productInfo = productInfoService.offSale("16b3f8f2-cd151507194585011");
+        Assert.assertNotNull(productInfo);
     }
 
 }
