@@ -38,6 +38,10 @@ public enum ResultEnum {
     ORDER_FINISH_SUCCESS(23, "订单完结成功"),
 
     PRODUCT_STATUS_ERROR(24, "商品状态不正确"),
+
+    PRODUCT_ONSALE_SUCCESS(25, "商品上架成功"),
+
+    PRODUCT_OFFSALE_SUCCESS(26, "商品下架成功"),
     ;
 
 
