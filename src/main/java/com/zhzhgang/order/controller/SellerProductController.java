@@ -1,13 +1,16 @@
 package com.zhzhgang.order.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.zhzhgang.order.domain.ProductCategory;
 import com.zhzhgang.order.domain.ProductInfo;
 import com.zhzhgang.order.enums.ResultEnum;
 import com.zhzhgang.order.exception.OrderException;
+import com.zhzhgang.order.service.ProductCategoryService;
 import com.zhzhgang.order.service.ProductInfoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +30,9 @@ public class SellerProductController {
 
     @Autowired
     private ProductInfoService productInfoService;
+
+    @Autowired
+    private ProductCategoryService productCategoryService;
 
     /**
      * 商品列表
@@ -80,7 +86,7 @@ public class SellerProductController {
      */
     @RequestMapping(value = "off_sale", method = RequestMethod.GET)
     public ModelAndView offSale(@RequestParam(value = "productId") String productId,
-                               Map<String, Object> map) {
+                                Map<String, Object> map) {
         try {
             productInfoService.offSale(productId);
         } catch (OrderException e) {
@@ -91,5 +97,21 @@ public class SellerProductController {
         map.put("msg", ResultEnum.PRODUCT_OFFSALE_SUCCESS.getMessage());
         map.put("url", "/sell/seller/product/list");
         return new ModelAndView("common/success", map);
+    }
+
+
+    @RequestMapping(value = "index", method = RequestMethod.GET)
+    public ModelAndView index(@RequestParam(value = "productId", required = false) String productId,
+                      Map<String, Object> map) {
+        if (!StringUtils.isEmpty(productId)) {
+            ProductInfo productInfo = productInfoService.findById(productId);
+            map.put("productInfo", productInfo);
+        }
+
+        // 查询所有类目
+        List<ProductCategory> productCategoryList = productCategoryService.findAll();
+        map.put("productCategoryList", productCategoryList);
+
+        return new ModelAndView("product/index", map);
     }
 }
