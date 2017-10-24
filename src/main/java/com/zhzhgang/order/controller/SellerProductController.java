@@ -143,12 +143,13 @@ public class SellerProductController {
         }
 
         try {
-            ProductInfo productInfo = productInfoService.findById(form.getProductId());
-            BeanUtils.copyProperties(form, productInfo);
-
-            if (StringUtils.isEmpty(productInfo.getProductId())) {
+            ProductInfo productInfo = new ProductInfo();
+            if (StringUtils.isEmpty(form.getProductId())) {
+                BeanUtils.copyProperties(form, productInfo);
                 productInfoService.save(productInfo);
             } else {
+                productInfo = productInfoService.findById(form.getProductId());
+                BeanUtils.copyProperties(form, productInfo);
                 productInfoService.update(productInfo);
             }
         } catch (OrderException e) {

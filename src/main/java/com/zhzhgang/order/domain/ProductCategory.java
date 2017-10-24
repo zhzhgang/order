@@ -2,6 +2,8 @@ package com.zhzhgang.order.domain;
 
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * 商品类目实体类
  * Created by zhangzhonggang
@@ -18,6 +20,10 @@ public class ProductCategory extends BaseEntity {
 
     /** 类目编号. */
     private Integer categoryType;
+
+    private Date ctime;
+
+    private Date utime;
 
     public ProductCategory() {
     }

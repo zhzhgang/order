@@ -20,7 +20,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     private ProductCategoryDao productCategoryDao;
 
     @Override
-    public ProductCategory findByid(Integer id) {
+    public ProductCategory findById(Integer id) {
         return productCategoryDao.findById(id);
     }
 

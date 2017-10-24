@@ -6,13 +6,17 @@
         <result column="categoryId" property="categoryId"></result>
         <result column="categoryName" property="categoryName"></result>
         <result column="categoryType" property="categoryType"></result>
+        <result column="ctime" property="ctime"></result>
+        <result column="utime" property="utime"></result>
     </resultMap>
 
     <select id="findById" parameterType="java.lang.Integer" resultMap="ProductCategoryMap">
         SELECT
           category_id categoryId,
           category_name categoryName,
-          category_type categoryType
+          category_type categoryType,
+          ctime ctime,
+          utime utime
         FROM
           product_category
         WHERE
@@ -23,7 +27,9 @@
         SELECT
           category_id categoryId,
           category_name categoryName,
-          category_type categoryType
+          category_type categoryType,
+          ctime ctime,
+          utime utime
         FROM
           product_category
     </select>
@@ -32,7 +38,9 @@
         SELECT
           category_id categoryId,
           category_name categoryName,
-          category_type categoryType
+          category_type categoryType,
+          ctime ctime,
+          utime utime
         FROM
           product_category
         WHERE

@@ -26,8 +26,8 @@ public class ProductCategoryServiceImplTest {
     ProductCategoryServiceImpl productCategoryService;
 
     @Test
-    public void findByid() throws Exception {
-        ProductCategory result = productCategoryService.findByid(2);
+    public void findById() throws Exception {
+        ProductCategory result = productCategoryService.findById(2);
         Assert.assertNotNull(result);
     }
 
@@ -52,10 +52,10 @@ public class ProductCategoryServiceImplTest {
 
     @Test
     public void update() throws Exception {
-        ProductCategory productCategory = productCategoryService.findByid(4);
+        ProductCategory productCategory = productCategoryService.findById(4);
         productCategory.setCategoryName("母婴用品");
         productCategoryService.update(productCategory);
-        Assert.assertEquals("母婴用品", productCategoryService.findByid(4).getCategoryName());
+        Assert.assertEquals("母婴用品", productCategoryService.findById(4).getCategoryName());
     }
 
 }
