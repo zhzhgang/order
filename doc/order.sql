@@ -59,4 +59,6 @@ create table order_detail (
 	key `idx_order_id` (`order_id`)
 ) comment '订单详情表';
 
-alter table `order_master` add INDEX idx_order_master_ctime (`ctime`);
+alter table `order_master` add index idx_order_master_ctime (`ctime`);
+
+alter table `product_info` add index idx_product_info_ctime (`ctime`);

@@ -20,7 +20,7 @@
 
                             <div class="form-group">
                                 <label>价格</label>
-                                <input type="text" name="productPrice" class="form-control" value="${(productInfo.productPrice)!''}" />
+                                <input type="number" name="productPrice" class="form-control" value="${(productInfo.productPrice)!''}" />
                             </div>
 
                             <div class="form-group">
@@ -43,7 +43,7 @@
                                 <label>类目</label>
                                 <select name="categoryType" class="form-control">
                                     <#list productCategoryList as productCategory>
-                                        <option value="productCategory.categoryType"
+                                        <option value="${productCategory.categoryType}"
                                                 <#if (productInfo.categoryType)?? && productInfo.categoryType = productCategory.categoryType>
                                                     selected
                                                 </#if>

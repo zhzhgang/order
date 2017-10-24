@@ -8,6 +8,7 @@ import com.zhzhgang.order.enums.ProductStatusEnum;
 import com.zhzhgang.order.enums.ResultEnum;
 import com.zhzhgang.order.exception.OrderException;
 import com.zhzhgang.order.service.ProductInfoService;
+import com.zhzhgang.order.utils.KeyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +27,8 @@ public class ProductInfoServiceImpl implements ProductInfoService {
 
     @Override
     public void save(ProductInfo productInfo) {
+        productInfo.setProductId(KeyUtil.genUniqueKey());
+        productInfo.setProductStatus(ProductStatusEnum.UP.getCode());
         productInfoDao.save(productInfo);
     }
 
@@ -49,6 +52,7 @@ public class ProductInfoServiceImpl implements ProductInfoService {
         if (productInfo.getPage() != null && productInfo.getRows() != null) {
             PageHelper.startPage(productInfo.getPage(), productInfo.getRows());
         }
+        PageHelper.orderBy("ctime desc");
         return productInfoDao.findAll();
     }
 
@@ -120,5 +124,10 @@ public class ProductInfoServiceImpl implements ProductInfoService {
         productInfo.setProductStatus(ProductStatusEnum.DOWN.getCode());
         productInfoDao.update(productInfo);
         return productInfo;
+    }
+
+    @Override
+    public void update(ProductInfo productInfo) {
+        productInfoDao.update(productInfo);
     }
 }

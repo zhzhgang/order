@@ -43,4 +43,6 @@ public interface ProductInfoService {
      * @return
      */
     ProductInfo offSale(String productId);
+
+    void update(ProductInfo productInfo);
 }
