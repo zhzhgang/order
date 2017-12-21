@@ -1,16 +1,13 @@
 package com.zhzhgang.order.controller;
 
 import com.zhzhgang.order.domain.ProductCategory;
-import com.zhzhgang.order.domain.ProductInfo;
 import com.zhzhgang.order.exception.OrderException;
 import com.zhzhgang.order.form.CategoryForm;
-import com.zhzhgang.order.form.ProductForm;
 import com.zhzhgang.order.service.ProductCategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
