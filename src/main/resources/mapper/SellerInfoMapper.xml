@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhzhgang.order.dao.SellerInfoDao">
+
+    <insert id="save" parameterType="SellerInfo" keyProperty="sellerId" useGeneratedKeys="false">
+        INSERT INTO seller_info (
+            seller_id,
+            username,
+            password,
+            openid
+        ) VALUES (
+            #{sellerId},
+            #{username},
+            #{password},
+            #{openid}
+        )
+    </insert>
+
+    <select id="findByOpenid" parameterType="java.lang.String" resultType="com.zhzhgang.order.domain.SellerInfo">
+        SELECT
+            seller_id sellerId,
+            username,
+            password,
+            openid,
+            ctime,
+            utime
+        FROM
+            seller_info
+        WHERE
+            openid = #{openid}
+    </select>
+
+</mapper>
